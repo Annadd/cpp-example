@@ -1,7 +1,7 @@
 #ifndef STACK_H
 #define STACK_H
 
-#include "Object"
+#include "Object.h"
 
 namespace DTLib
 {

@@ -1,5 +1,5 @@
-#ifndef _LINUX_LIST_H
-#define _LINUX_LIST_H
+#ifndef LINUX_LIST_H
+#define LINUX_LIST_H
 
 // #include <linux/types.h>
 // #include <linux/stddef.h>
@@ -16,8 +16,8 @@
 
 #define prefetch(x) ((void)x)
 
-#define LIST_POISON1  (NULL)
-#define LIST_POISON2  (NULL)
+#define LIST_POISON1  (nullptr)
+#define LIST_POISON2  (nullptr)
 
 struct list_head {
     struct list_head *next, *prev;
@@ -683,7 +683,7 @@ static void hlist_move_list(struct hlist_head *old,
     node->first = old->first;
     if (node->first)
         node->first->pprev = &node->first;
-    old->first = NULL;
+    old->first = nullptr;
 }
 
 #define hlist_entry(ptr, type, member) container_of(ptr,type,member)
@@ -746,4 +746,4 @@ static void hlist_move_list(struct hlist_head *old,
         ({ tpos = hlist_entry(pos, typeof(*tpos), member); 1;}); \
          pos = n)
 
-#endif
+#endif //LINUX_LIST_H

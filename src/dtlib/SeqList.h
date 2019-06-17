@@ -1,5 +1,5 @@
-#ifndef __SEQLIST_H__
-#define __SEQLIST_H__
+#ifndef SEQLIST_H
+#define SEQLIST_H
 
 #include "List.h"
 #include "Exception.h"
@@ -14,6 +14,11 @@ protected:
     int mLength;
 
 public:
+    bool insert(const T& e)
+    {
+        return insert(mLength, e);
+    }
+
     bool insert(int i, const T& e)
     {
         bool ret = ((0 <= i) && (i <= mLength));
@@ -68,6 +73,20 @@ public:
         return ret;
     }
 
+    int find(const T& e) const
+    {
+        int ret = -1;
+
+        for (int i = 0; i < mLength; i++) {
+            if(mArray[i] == e){
+                ret = i;
+                break;
+            }
+        }
+
+        return ret;
+    }
+
     int length() const
     {
         return mLength;
@@ -97,4 +116,4 @@ public:
 
 }
 
-#endif //__SEQLIST_H__
+#endif //SEQLIST_H

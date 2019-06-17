@@ -1,7 +1,7 @@
-#ifndef __STATICLIST_H__
-#define __STATICLIST_H__
+#ifndef STATICLIST_H
+#define STATICLIST_H
 
-#include "SeqList.hpp"
+#include "SeqList.h"
 
 namespace DTLib
 {
@@ -15,8 +15,8 @@ protected:
 public:
     StaticList()
     {
-        mArray = mSpace;
-        mLength = 0;
+        this->mArray = mSpace;
+        this->mLength = 0;
     }
 
     int capacity() const
@@ -27,4 +27,4 @@ public:
 
 }
 
-#endif//__STATICLIST_H__
+#endif//STATICLIST_H

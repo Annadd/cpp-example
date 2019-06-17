@@ -1,5 +1,5 @@
-#ifndef __EXCEPTION_H_
-#define __EXCEPTION_H_
+#ifndef EXCEPTION_H
+#define EXCEPTION_H
 
 #include "Object.h"
 
@@ -8,7 +8,8 @@ namespace DTLib
 
 #define THROW_EXCEPTION(e, msg) (throw e(msg, __FILE__, __LINE__))
 
-class Exception : public Object{
+class Exception : public Object
+{
 protected:
 	char* mMessage;
 	char* mLocation;
@@ -29,83 +30,71 @@ public:
 	virtual ~Exception() = 0;
 };
 
-class ArithmeticException : public Exception{
+class ArithmeticException : public Exception
+{
 public:
-	ArithmeticException(const char* message):Exception(message){}
-	ArithmeticException(const char* file, int line):Exception(file, line){}
-	ArithmeticException(const char* message, const char* file, int line):Exception(message,file,line){}
+    ArithmeticException(const char* message);
+    ArithmeticException(const char* file, int line);
+    ArithmeticException(const char* message, const char* file, int line);
 	
-	ArithmeticException(const ArithmeticException& e):Exception(e){}
-	ArithmeticException& operator=(const ArithmeticException& e){
-		Exception::operator=(e);
-		return *this;
-	}
+    ArithmeticException(const ArithmeticException& e);
+    ArithmeticException& operator=(const ArithmeticException& e);
 };
 
-class NullPointerException : public Exception{
+class NullPointerException : public Exception
+{
 public:	
-	NullPointerException(const char* message):Exception(message){}
-	NullPointerException(const char* file, int line):Exception(file, line){}
-	NullPointerException(const char* message, const char* file, int line):Exception(message,file,line){}
+    NullPointerException(const char* message);
+    NullPointerException(const char* file, int line);
+    NullPointerException(const char* message, const char* file, int line);
 	
-	NullPointerException(const NullPointerException& e):Exception(e){}
-	NullPointerException& operator=(const NullPointerException& e){
-		Exception::operator=(e);
-		return *this;
-	}
+    NullPointerException(const NullPointerException& e);
+    NullPointerException& operator=(const NullPointerException& e);
 };
 
-class IndexOutOfBoundsException : public Exception{
+class IndexOutOfBoundsException : public Exception
+{
 public:	
-	IndexOutOfBoundsException(const char* message):Exception(message){}
-	IndexOutOfBoundsException(const char* file, int line):Exception(file, line){}
-	IndexOutOfBoundsException(const char* message, const char* file, int line):Exception(message,file,line){}
+    IndexOutOfBoundsException(const char* message);
+    IndexOutOfBoundsException(const char* file, int line);
+    IndexOutOfBoundsException(const char* message, const char* file, int line);
 	
-	IndexOutOfBoundsException(const IndexOutOfBoundsException& e):Exception(e){}
-	IndexOutOfBoundsException& operator=(const IndexOutOfBoundsException& e){
-		Exception::operator=(e);
-		return *this;
-	}
+    IndexOutOfBoundsException(const IndexOutOfBoundsException& e);
+    IndexOutOfBoundsException& operator=(const IndexOutOfBoundsException& e);
 };
 
-class NoEnoughMemeoryException : public Exception{
+class NoEnoughMemeoryException : public Exception
+{
 public:	
-	NoEnoughMemeoryException(const char* message):Exception(message){}
-	NoEnoughMemeoryException(const char* file, int line):Exception(file, line){}
-	NoEnoughMemeoryException(const char* message, const char* file, int line):Exception(message,file,line){}
+    NoEnoughMemeoryException(const char* message);
+    NoEnoughMemeoryException(const char* file, int line);
+    NoEnoughMemeoryException(const char* message, const char* file, int line);
 	
-	NoEnoughMemeoryException(const NoEnoughMemeoryException& e):Exception(e){}
-	NoEnoughMemeoryException& operator=(const NoEnoughMemeoryException& e){
-		Exception::operator=(e);
-		return *this;
-	}
+    NoEnoughMemeoryException(const NoEnoughMemeoryException& e);
+    NoEnoughMemeoryException& operator=(const NoEnoughMemeoryException& e);
 };
 
-class InvalidParameterException : public Exception{
+class InvalidParameterException : public Exception
+{
 public:	
-	InvalidParameterException(const char* message):Exception(message){}
-	InvalidParameterException(const char* file, int line):Exception(file, line){}
-	InvalidParameterException(const char* message, const char* file, int line):Exception(message,file,line){}
+    InvalidParameterException(const char* message);
+    InvalidParameterException(const char* file, int line);
+    InvalidParameterException(const char* message, const char* file, int line);
 	
-	InvalidParameterException(const InvalidParameterException& e):Exception(e){}
-	InvalidParameterException& operator=(const InvalidParameterException& e){
-		Exception::operator=(e);
-		return *this;
-	}
+    InvalidParameterException(const InvalidParameterException& e);
+    InvalidParameterException& operator=(const InvalidParameterException& e);
 };
 
-class InvalidOperationException : public Exception{
+class InvalidOperationException : public Exception
+{
 public:	
-	InvalidOperationException(const char* message):Exception(message){}
-	InvalidOperationException(const char* file, int line):Exception(file, line){}
-	InvalidOperationException(const char* message, const char* file, int line):Exception(message,file,line){}
+    InvalidOperationException(const char* message);
+    InvalidOperationException(const char* file, int line);
+    InvalidOperationException(const char* message, const char* file, int line);
 	
-	InvalidOperationException(const InvalidOperationException& e):Exception(e){}
-	InvalidOperationException& operator=(const InvalidOperationException& e){
-		Exception::operator=(e);
-		return *this;
-	}
+    InvalidOperationException(const InvalidOperationException& e);
+    InvalidOperationException& operator=(const InvalidOperationException& e);
 };
 
 }
-#endif //__EXCEPTION_H_
+#endif //EXCEPTION_H
