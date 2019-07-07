@@ -26,6 +26,61 @@ bool DTLib::String::equal(const char *l, const char *r, int len) const
     return ret;
 }
 
+int *DTLib::String::makePMT(const char *p)
+{
+    size_t len = std::strlen(p);
+    int* ret = new int[len];
+
+    if(ret != nullptr){
+        int ll = 0;
+
+        ret[0] = 0;
+
+        for (size_t i = 1; i < len; i++) {
+            while((ll > 0) && (p[ll] != p[i])){
+                ll = ret[ll - 1];
+            }
+
+            if(p[ll] == p[i]){
+                ll++;
+            }
+
+            ret[i] = ll;
+        }
+    }
+
+    return ret;
+}
+
+int DTLib::String::kmp(const char *s, const char *p)
+{
+    int ret = -1;
+    int sl = static_cast<int>(std::strlen(s));
+    int pl = static_cast<int>(std::strlen(p));
+    int* pmt = makePMT(p);
+
+    if((pmt != nullptr) && (0 < pl) && (pl <= sl)){
+        for (int i = 0, j = 0; i < sl; i++) {
+            while( (j > 0) && s[i] != p[j]){
+                j = pmt[j - 1];
+            }
+
+            if(s[i] == p[j]){
+                j++;
+            }
+
+            if(j == pl){
+                ret = i + 1 - pl;
+                break;
+            }
+        }
+    }
+
+    delete[] pmt;
+
+    return ret;
+}
+
 DTLib::String::String()
 {
     init("");
@@ -155,6 +210,89 @@ DTLib::String &DTLib::String::trim()
     return *this;
 }
 
+int DTLib::String::indexOf(const char *s) const
+{
+    return kmp(mStr, s);
+}
+
+int DTLib::String::indexOf(const DTLib::String &s) const
+{
+    return kmp(mStr, s.mStr);
+}
+
+DTLib::String& DTLib::String::remove(int i, int len)
+{
+    if((0 <= i) && (i < mLength)){
+        int n = i;
+        int m = i + len;
+
+        while ((n < m) && (m < mLength)) {
+            mStr[n++] = mStr[m++];
+        }
+
+        mStr[n] = '\0';
+        mLength = n;
+    }
+}
+
+DTLib::String &DTLib::String::remove(const char *s)
+{
+    return remove(indexOf(s), s ? strlen(s) : 0);
+}
+
+DTLib::String &DTLib::String::remove(const DTLib::String &s)
+{
+    return remove(indexOf(s), s.length());
+}
+
+DTLib::String &DTLib::String::replace(const char *t, const char *s)
+{
+    int index = indexOf(t);
+
+    if(index >= 0){
+        remove(t);
+        insert(index, s);
+    }
+
+    return *this;
+}
+
+DTLib::String &DTLib::String::replace(const char *t, const DTLib::String &s)
+{
+    return replace(t, s.mStr);
+}
+
+DTLib::String &DTLib::String::replace(const DTLib::String &t, const char *s)
+{
+    return replace(t.mStr, s);
+}
+
+DTLib::String &DTLib::String::replace(const DTLib::String &t, const DTLib::String &s)
+{
+    return replace(t.mStr, s.mStr);
+}
+
+DTLib::String DTLib::String::sub(int i, int len) const
+{
+    String ret;
+
+    if((0 <= i) && (i < mLength)){
+        if(len < 0) len = 0;
+        if(len + i > mLength) len = mLength - i;
+        char* str = reinterpret_cast<char*>(std::malloc(len + 1));
+
+        std::strncpy(str, mStr + i, len);
+
+        str[len] = '\0';
+
+        ret = str;
+    } else {
+        THROW_EXCEPTION(IndexOutOfBoundsException, "Parameter i is invaid ...");
+    }
+
+    return ret;
+}
+
 char& DTLib::String::operator[](int i)
 {
     if((0 <= i) && (i < mLength)){
@@ -253,6 +391,26 @@ DTLib::String& DTLib::String::operator += (const String& s)
 DTLib::String& DTLib::String::operator += (const char* s)
 {
     return (*this = *this + s);
+}
+
+DTLib::String DTLib::String::operator -(const DTLib::String &s) const
+{
+    return String(*this).remove(s);
+}
+
+DTLib::String DTLib::String::operator -(const char *s) const
+{
+    return String(*this).remove(s);
+}
+
+DTLib::String &DTLib::String::operator -=(const DTLib::String &s)
+{
+    return remove(s);
+}
+
+DTLib::String &DTLib::String::operator -=(const char *s)
+{
+    return remove(s);
 }
 
 DTLib::String& DTLib::String::operator = (const String& s)
