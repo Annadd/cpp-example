@@ -27,9 +27,11 @@ HEADERS += \
     Object.h \
     Pointer.h \
     Queue.h \
+    QueueSolution.h \
     SeqList.h \
     SharedPointer.h \
     SmartPointer.h \
+    Sort.h \
     Stack.h \
     StaticArray.h \
     StaticLinkList.h \
