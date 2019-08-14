@@ -50,6 +50,11 @@ public:
         return (const_cast<Array<T>&>(*this))[i];
     }
 
+    T* array() const
+    {
+        return mArray;
+    }
+
 public:
     virtual int length() const = 0;
 };

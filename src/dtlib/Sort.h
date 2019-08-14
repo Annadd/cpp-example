@@ -2,6 +2,7 @@
 #define SORT_H
 
 #include "Object.h"
+#include "Array.h"
 
 namespace DTLib
 {
@@ -52,7 +53,7 @@ private:
     template<typename T>
     static void Merge(T src[], T helper[], int begin, int end, bool min2max)
     {
-        if(begin != end){
+        if(begin < end){
             int mid = (begin + end) / 2;
 
             Merge(src, helper, begin, mid, min2max);
@@ -221,6 +222,48 @@ public:
     static void Quick(T array[], int len, bool min2max = true)
     {
         Quick(array, 0, len - 1, min2max);
+    }
+
+    template<typename T>
+    static void Select(Array<T>& array, bool min2max = true)
+    {
+        Select(array.array(), array.length(), min2max);
+    }
+
+    template<typename T>
+    static void Insert(Array<T>& array, bool min2max = true)
+    {
+        Insert(array.array(), array.length(), min2max);
+    }
+
+    template<typename T>
+    static void Bubble(Array<T>& array, bool min2max = true)
+    {
+        Bubble(array.array(), array.length(), min2max);
+    }
+
+    template<typename T>
+    static void Shell(Array<T>& array, bool min2max = true)
+    {
+        Shell(array.array(), array.length(), min2max);
+    }
+
+    template<typename T>
+    static void ShellSelect(Array<T>& array, bool min2max = true)
+    {
+        ShellSelect(array.array(), array.length(), min2max);
+    }
+
+    template<typename T>
+    static void Merge(Array<T>& array, bool min2max = true)
+    {
+        Merge(array.array(), array.length(), min2max);
+    }
+
+    template<typename T>
+    static void Quick(Array<T>& array, bool min2max = true)
+    {
+        Quick(array.array(), array.length(), min2max);
     }
 };
 
