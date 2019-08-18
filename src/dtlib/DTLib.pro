@@ -12,6 +12,8 @@ SOURCES += \
 
 HEADERS += \
     Array.h \
+    BTree.h \
+    BTreeNode.h \
     CircleList.h \
     DTString.h \
     DualCircleList.h \
@@ -19,6 +21,8 @@ HEADERS += \
     DynamicArray.h \
     DynamicList.h \
     Exception.h \
+    GTree.h \
+    GTreeNode.h \
     LinkList.h \
     LinkQueue.h \
     LinkStack.h \
@@ -38,4 +42,6 @@ HEADERS += \
     StaticList.h \
     StaticQueue.h \
     StaticStack.h \
-    Test.h
+    Test.h \
+    Tree.h \
+    TreeNode.h
