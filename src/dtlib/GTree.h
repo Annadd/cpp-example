@@ -255,7 +255,7 @@ public:
         mQueue.clear();
     }
 
-    bool begin()
+    bool begin() override
     {
         bool ret = (root() != nullptr);
 
@@ -267,7 +267,7 @@ public:
         return ret;
     }
 
-    bool next()
+    bool next() override
     {
         bool ret = (mQueue.length() > 0);
 
@@ -285,7 +285,7 @@ public:
         return ret;
     }
 
-    T current()
+    T current() override
     {
         if(!end()){
             return mQueue.front()->value;
@@ -294,7 +294,7 @@ public:
         }
     }
 
-    bool end()
+    bool end() override
     {
         return (mQueue.length() == 0);
     }

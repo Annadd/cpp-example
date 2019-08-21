@@ -158,9 +158,9 @@ DTLib::String &DTLib::String::insert(int i, const char *s)
             char* str = reinterpret_cast<char*>(malloc(mLength + len + 1));
 
             if(str != nullptr){
-                std::strncpy(str, mStr, i);
-                std::strncpy(str + i, s, len);
-                std::strncpy(str + i + len, mStr + i, mLength - i);
+                std::strncpy(str, mStr, static_cast<size_t>(i));
+                std::strncpy(str + i, s, static_cast<size_t>(len));
+                std::strncpy(str + i + len, mStr + i, static_cast<size_t>(mLength - i));
 
                 str[mLength + len] = '\0';
 
@@ -233,6 +233,8 @@ DTLib::String& DTLib::String::remove(int i, int len)
         mStr[n] = '\0';
         mLength = n;
     }
+
+    return *this;
 }
 
 DTLib::String &DTLib::String::remove(const char *s)
