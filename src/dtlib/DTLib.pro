@@ -23,11 +23,14 @@ HEADERS += \
     Exception.h \
     GTree.h \
     GTreeNode.h \
+    Graph.h \
     LinkList.h \
     LinkQueue.h \
     LinkStack.h \
     LinuxList.h \
     List.h \
+    ListGraph.h \
+    MatrixGraph.h \
     Object.h \
     Pointer.h \
     Queue.h \
