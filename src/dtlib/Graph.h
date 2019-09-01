@@ -27,6 +27,16 @@ struct Edge : public Object
         e = j;
         data = value;
     }
+
+    bool operator==(const Edge<E>& obj)
+    {
+        return (b == obj.b) && (e == obj.e);
+    }
+
+    bool operator!=(const Edge<E>& obj)
+    {
+        return !(*this == obj);
+    }
 };
 
 template<typename V, typename E>
