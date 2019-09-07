@@ -2,7 +2,6 @@
 #define MATRIXGRAPH_H
 
 #include "Graph.h"
-#include "DynamicArray.h"
 
 namespace DTLib
 {
@@ -110,6 +109,11 @@ public:
         }
 
         return ret;
+    }
+
+    bool isAdjacent(int i, int j) override
+    {
+        return (0 <= i) && (i < vCount()) && (0 <= j) && (j < vCount()) && (mEdges[i][j] != nullptr);
     }
 
     E getEdge(int i, int j) override

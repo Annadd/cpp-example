@@ -1,10 +1,9 @@
 #ifndef LISTGRAPH_H
 #define LISTGRAPH_H
 
-#include "LinkList.h"
-#include "DynamicArray.h"
 #include "Graph.h"
-
+#include "LinkList.h"
+#include "Edge.h"
 
 namespace DTLib
 {
@@ -157,6 +156,11 @@ public:
         }
 
         return ret;
+    }
+
+    bool isAdjacent(int i, int j) override
+    {
+        return (0 <= i) && (i < vCount()) && (0 <= j) && (j < vCount()) && (mList.get(i)->edge.find(Edge<E>(i, j)) >= 0);
     }
 
     E getEdge(int i, int j) override

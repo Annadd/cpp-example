@@ -15,11 +15,13 @@ HEADERS += \
     BTree.h \
     BTreeNode.h \
     CircleList.h \
+    DFS.h \
     DTString.h \
     DualCircleList.h \
     DualLinkList.h \
     DynamicArray.h \
     DynamicList.h \
+    Edge.h \
     Exception.h \
     GTree.h \
     GTreeNode.h \
