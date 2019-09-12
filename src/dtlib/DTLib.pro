@@ -32,6 +32,7 @@ HEADERS += \
     LinuxList.h \
     List.h \
     ListGraph.h \
+    LongestDescendSolution.h \
     MatrixGraph.h \
     Object.h \
     Pointer.h \

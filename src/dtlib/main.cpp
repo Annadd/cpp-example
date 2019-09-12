@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 
 #include "StaticList.h"
 #include "DynamicList.h"
@@ -16,6 +17,12 @@
 #include "StaticQueue.h"
 #include "LinkQueue.h"
 #include "DTString.h"
+#include "Queuesolution.h"
+#include "Sort.h"
+#include "GTree.h"
+#include "BTree.h"
+//#include "MatrixGraph.h"
+#include "ListGraph.h"
 
 #include "Test.h"
 
@@ -53,26 +60,26 @@ void testLinkQueue();
 
 void testString();
 
+void testGTree();
+
+void testBTree();
+
+void testMatrixGraph();
+
+void testListGraph();
+
+void testPrim();
+
+size_t sum(size_t n);
+
 int main()
 {
-    //testStaticList();
-    //testDynamicList();
-    //testStaticArray();
-    //testDynamicArray();
-    //testLinkList();
-    //testStaticLinkList();
-    //testSmartPointer();
-    //testSharedPointer();
-    //testCircleList();
-    //testDualLinkList();
-    //testDualCircleList();
-    //testStaticStack();
-    //testLinkStack();
-    //testStaticQueue();
+    try {
+        testPrim();
+    } catch (DTLib::Exception& e) {
+        cout << e.message() << endl;
+    }
 
-    //testLinkQueue();
-
-    testString();
     return 0;
 }
 
@@ -473,4 +480,277 @@ void testString()
     cout << endl;
 
     cout << "min = " << min.str() << endl;
+}
+
+size_t sum(size_t n)
+{
+    if(n > 1){
+        return n + sum(n - 1);
+    }
+
+    return 1;
+}
+
+void testGTree()
+{
+    DTLib::GTree<char> t;
+    DTLib::GTreeNode<char>* node = nullptr;
+    DTLib::GTreeNode<char> root;
+
+    root.value = 'A';
+    root.parent = nullptr;
+
+    t.insert(&root);
+
+    node = t.find('A');
+    t.insert('B', node);
+    t.insert('C', node);
+    t.insert('D', node);
+
+    node = t.find('B');
+    t.insert('E', node);
+    t.insert('F', node);
+
+    node = t.find('E');
+    t.insert('K', node);
+    t.insert('L', node);
+
+    node = t.find('C');
+    t.insert('G', node);
+
+    //node = t.find('G');
+    //t.insert('N', node);
+
+    node = t.find('D');
+    t.insert('H', node);
+    t.insert('I', node);
+    t.insert('J', node);
+
+    node = t.find('H');
+    t.insert('M', node);
+
+    std::cout << t.count() << std::endl;
+    std::cout << t.height() << std::endl;
+    std::cout << t.degree() << std::endl;
+
+    for (t.begin(); !t.end(); t.next()) {
+        std::cout << t.current() << std::endl;
+    }
+}
+
+
+void testBTree()
+{
+    DTLib::BTree<int> bt;
+    DTLib::BTreeNode<int>* n = nullptr;
+
+    bt.insert(1, nullptr);
+
+    n = bt.find(1);
+    bt.insert(2 ,n);
+    bt.insert(3, n);
+
+    n = bt.find(2);
+    bt.insert(4 ,n);
+    bt.insert(5, n);
+
+    n = bt.find(4);
+    bt.insert(8 ,n);
+    bt.insert(9, n);
+
+    n = bt.find(5);
+    bt.insert(10 ,n);
+
+    n = bt.find(3);
+    bt.insert(6 ,n);
+    bt.insert(7, n);
+
+    n = bt.find(6);
+    bt.insert(11 ,n, DTLib::LEFT);
+
+    DTLib::BTreeNode<int>* head = bt.thread(DTLib::LevelOrder);
+    DTLib::BTreeNode<int>* hhead = nullptr;
+
+    while(head != nullptr){
+        hhead = head;
+        head = head->right;
+    }
+
+    while(hhead != nullptr){
+        cout << hhead->value << " ";
+        hhead = hhead->left;
+    }
+
+//    std::cout << bt.count() << std::endl;
+//    std::cout << bt.height() << std::endl;
+//    std::cout << bt.degree() << std::endl;
+
+//    using namespace DTLib;
+//    SharedPointer<BTree<int>> btClone = bt.clone();
+//    std::cout << btClone->count() << std::endl;
+//    std::cout << btClone->height() << std::endl;
+//    std::cout << btClone->degree() << std::endl;
+
+
+//    std::cout << (bt == *btClone) << std::endl;
+
+//    BTree<int> nbt;
+
+//    nbt.insert(0, nullptr);
+//    n = nbt.find(0);
+//    nbt.insert(6, n);
+//    nbt.insert(2, n);
+
+//    n = nbt.find(2);
+//    nbt.insert(7, n);
+//    nbt.insert(8, n);
+
+//    SharedPointer<BTree<int>> addBt = nbt.add(bt);
+//    for (addBt->begin(); !addBt->end(); addBt->next()) {
+//        cout << addBt->current() << " ";
+//    }
+//    cout << endl;
+
+    /*
+    auto sp = bt.remove(3);
+
+    int a[] = {8, 9, 10, 11, 7};
+
+    for (auto &vla : a) {
+        DTLib::TreeNode<int>* node = sp->find(vla);
+
+        while(node){
+            cout << node->value << " ";
+            node = node->parent;
+        }
+        cout << endl;
+    }
+    */
+//    for (bt.begin(); !bt.end(); bt.next()) {
+//       cout << bt.current() << " ";
+//    }
+//    cout << endl;
+
+//    for (btClone->begin(); !btClone->end(); btClone->next()) {
+//        cout << btClone->current() << " ";
+//    }
+//    cout << endl;
+
+//    auto tpr = bt.traversal(DTLib::PreOrder);
+//    for (int i = 0; i < tpr->length(); i++) {
+//        cout << (*tpr)[i] << " ";
+//    }
+//    cout << " PreOrder" << endl;
+
+//    auto tin = bt.traversal(DTLib::InOrder);
+//    for (int i = 0; i < tin->length(); i++) {
+//        cout << (*tin)[i] << " ";
+//    }
+//    cout << " InOrder" << endl;
+
+//    auto tr = bt.traversal(DTLib::PostOrder);
+//    for (int i = 0; i < tr->length(); i++) {
+//        cout << (*tr)[i] << " ";
+//    }
+//    cout << " PostOrder" << endl;
+}
+
+void testMatrixGraph()
+{
+#if 0
+    DTLib::MatrixGraph<3, int, int> g;
+
+    g.setEdge(0, 1, 1);
+    g.setEdge(1, 0, 2);
+    g.setEdge(1, 2, 3);
+
+    cout << "vCount: " << g.vCount() << endl;
+    cout << "eCount: " << g.eCount() << endl;
+    cout << "ID(1): " << g.ID(1) << endl;
+    cout << "OD(1): " << g.OD(1) << endl;
+    cout << "TD(1): " << g.TD(1) << endl;
+
+    cout << "W(0, 1): " << g.getEdge(0, 1) << endl;
+    cout << "W(1, 0): " << g.getEdge(1, 0) << endl;
+    cout << "W(1, 2): " << g.getEdge(1, 2) << endl;
+
+    auto aj = g.getAdjacent(1);
+    for (int i = 0; i < aj->length(); i++) {
+        cout << (*aj)[i] << " ";
+    }
+
+    cout << endl;
+
+    g.removeEdge(0, 1);
+    cout << "eCount: " << g.eCount() << endl;
+
+    g.setVertex(0, 100);
+    cout << "V(0): " << g.getVertex(0) << endl;
+
+    g.setVertex(1, 200);
+    cout << "V(1): " << g.getVertex(0) << endl;
+
+    g.setVertex(2, 300);
+    cout << "V(2): " << g.getVertex(0) << endl;
+
+    cout << "W(0, 1): " << g.getEdge(0, 1) << endl;
+#endif
+}
+
+
+void testListGraph()
+{
+    DTLib::ListGraph<char, int> g;
+
+//    g.setVertex(0, 'A');
+//    g.setVertex(1, 'B');
+//    g.setVertex(2, 'C');
+//    g.setVertex(3, 'D');
+
+    g.addVertex('A');
+    g.addVertex('B');
+    g.addVertex('C');
+    g.addVertex('D');
+
+    //g.removeVertex();
+
+    for (int i = 0; i < g.vCount(); i++) {
+        cout << i << " : " << g.getVertex(i) << "\n";
+    }
+
+    g.setEdge(0, 1, 5);
+    g.setEdge(0, 3, 6);
+    g.setEdge(1, 2, 8);
+    g.setEdge(2, 3, 2);
+    g.setEdge(3, 1, 9);
+
+    cout << "W(0, 1) : " << g.getEdge(0, 1) << "\n";
+    cout << "W(0, 3) : " << g.getEdge(0, 3) << "\n";
+    cout << "W(1, 2) : " << g.getEdge(1, 2) << "\n";
+    cout << "W(2, 3) : " << g.getEdge(2, 3) << "\n";
+    cout << "W(3, 1) : " << g.getEdge(3, 1) << "\n";
+
+    cout << "ID(1) : " << g.ID(1) << "\n";
+    cout << "OD(1) : " << g.OD(1) << "\n";
+    cout << "TD(1) : " << g.TD(1) << "\n";
+
+    cout << "eCount() : " << g.eCount() << "\n";
+    g.removeEdge(3, 1);
+    cout << "eCount() : " << g.eCount() << "\n";
+
+    auto aj = g.getAdjacent(0);
+    for (int i = 0; i < aj->length(); i++) {
+        cout << (*aj)[i] << " \n";
+    }
+
+    g.removeVertex();
+    cout << "eCount() : " << g.eCount() << "\n";
+    cout << "W(0, 1) : " << g.getEdge(0, 1) << "\n";
+    cout << "W(1, 2) : " << g.getEdge(1, 2) << "\n";
+    cout << "W(3, 1) : " << g.getEdge(3, 1) << "\n";
+}
+
+void testPrim()
+{
+
 }
